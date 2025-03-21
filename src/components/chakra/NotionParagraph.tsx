@@ -66,7 +66,7 @@ export const NotionParagraph = ({ block, customImage }: Props): JSX.Element => {
   }
   return (
     <Text>
-      <NotionText text={text} />
+      <NotionText text={text} color="#374151" marginBottom="0.5rem" lineHeight="1.75" />
     </Text>
   );
 };
