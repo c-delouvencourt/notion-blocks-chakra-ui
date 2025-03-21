@@ -10,7 +10,7 @@ type NotionToDoProps = {
 export const NotionToDo = ({ block }: NotionToDoProps): JSX.Element => {
   return (
     <Checkbox defaultChecked={block.to_do.checked} isReadOnly>
-      <NotionText text={block.to_do.text} />
+      <NotionText text={block.to_do.text} color="#374151" marginBottom="0.5rem" lineHeight="1.75" />
     </Checkbox>
   );
 };
