@@ -1,11 +1,11 @@
 import React from 'react';
 import { chakra, Link, TextProps } from '@chakra-ui/react';
-import { RichText } from '@notionhq/client/build/src/api-types';
+import { RichTextItemResponse } from '@notionhq/client/build/src/api-endpoints';
 
 export const NotionText = ({
   text,
   ...props
-}: { text?: RichText[] | null } & TextProps): JSX.Element => {
+}: { text?: RichTextItemResponse[] | null } & TextProps): JSX.Element => {
   if (!text) {
     return <></>;
   }

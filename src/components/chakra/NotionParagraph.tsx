@@ -1,20 +1,20 @@
 import { Box, Image, Text } from '@chakra-ui/react';
 import {
-  ParagraphBlock,
-  RichTextText,
-} from '@notionhq/client/build/src/api-types';
+  ParagraphBlockObjectResponse,
+  RichTextItemResponse,
+} from '@notionhq/client/build/src/api-endpoints';
 import React from 'react';
 import { NotionText } from '../notion/NotionText';
 
 type Props = {
-  block: ParagraphBlock;
+  block: ParagraphBlockObjectResponse;
   customImage?: { Image: (props: any) => JSX.Element; props: any };
 };
 
 export const NotionParagraph = ({ block, customImage }: Props): JSX.Element => {
-  const text = block.paragraph.text as RichTextText[];
+  const text = block.paragraph.rich_text as RichTextItemResponse[];
   if ((text ?? []).length === 0) return <br />;
-  if (text[0].text.content.startsWith('[image')) {
+  if ('text' in text[0] && text[0].text.content.startsWith('[image')) {
     const imageProps = text[0].plain_text
       .slice(1)
       .slice(0, -1)
@@ -26,12 +26,12 @@ export const NotionParagraph = ({ block, customImage }: Props): JSX.Element => {
         {customImage && customImage.Image ? (
           <customImage.Image src={imageProps[0]} {...customImage.props} />
         ) : (
-          <Image src={imageProps[0]} layout="fill" objectFit="contain" />
+          <Image src={imageProps[0]} boxSize="100%" objectFit="contain" />
         )}
       </Box>
     );
   }
-  if (text[0].text.content.startsWith('[video')) {
+  if ('text' in text[0] && text[0].text.content.startsWith('[video')) {
     const videoProps = text[0].plain_text
       .slice(1)
       .slice(0, -1)
@@ -45,7 +45,7 @@ export const NotionParagraph = ({ block, customImage }: Props): JSX.Element => {
       </video>
     );
   }
-  if (text[0].text.content.startsWith('[youtube')) {
+  if ('text' in text[0] && text[0].text.content.startsWith('[youtube')) {
     const youtubeProps = text[0].plain_text
       .slice(1)
       .slice(0, -1)
@@ -65,8 +65,8 @@ export const NotionParagraph = ({ block, customImage }: Props): JSX.Element => {
     );
   }
   return (
-    <Text>
-      <NotionText text={text} color="#374151" marginBottom="0.5rem" lineHeight="1.75" />
+    <Text color="#374151" marginBottom="0.5rem" lineHeight="1.75">
+      <NotionText text={text} />
     </Text>
   );
 };

@@ -1,8 +1,8 @@
-import { EmbedBlock } from '@notionhq/client/build/src/api-types';
+import { EmbedBlockObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 import React from 'react';
 
 type NotionEmbedProps = {
-  block: EmbedBlock;
+  block: EmbedBlockObjectResponse;
 };
 
 export const NotionEmbed = ({ block }: NotionEmbedProps): JSX.Element => {

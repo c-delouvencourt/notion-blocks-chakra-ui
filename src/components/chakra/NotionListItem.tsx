@@ -1,12 +1,14 @@
 import { chakra } from '@chakra-ui/react';
 import {
-  BulletedListItemBlock,
-  NumberedListItemBlock,
-} from '@notionhq/client/build/src/api-types';
+  BulletedListItemBlockObjectResponse,
+  NumberedListItemBlockObjectResponse,
+} from '@notionhq/client/build/src/api-endpoints';
 import React from 'react';
 import { NotionText } from '../notion/NotionText';
 
-export type ListItemBlock = NumberedListItemBlock | BulletedListItemBlock;
+export type ListItemBlock =
+  | NumberedListItemBlockObjectResponse
+  | BulletedListItemBlockObjectResponse;
 
 type NotionListItemProps = {
   block: ListItemBlock;
@@ -18,8 +20,8 @@ export const NotionListItem = ({ block }: NotionListItemProps): JSX.Element => {
       <NotionText
         text={
           'bulleted_list_item' in block
-            ? block.bulleted_list_item.text
-            : block.numbered_list_item.text
+            ? block.bulleted_list_item.rich_text
+            : block.numbered_list_item.rich_text
         }
       />
     </chakra.li>

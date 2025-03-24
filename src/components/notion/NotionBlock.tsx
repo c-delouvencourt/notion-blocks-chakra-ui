@@ -1,16 +1,15 @@
 import React from 'react';
 import {
-  Block,
-  ParagraphBlock as ParagraphNotionBlock,
-  ToDoBlock,
-  EmbedBlock,
-  ToggleBlock,
-} from '@notionhq/client/build/src/api-types';
+  BlockObjectResponse as Block,
+  ParagraphBlockObjectResponse as ParagraphNotionBlock,
+  ToDoBlockObjectResponse,
+  EmbedBlockObjectResponse,
+  ToggleBlockObjectResponse,
+} from '@notionhq/client/build/src/api-endpoints';
 import { NotionParagraph } from '../chakra/NotionParagraph';
 import { HeadingBlock, NotionHeading } from '../chakra/NotionHeading';
 import { ListItemBlock, NotionListItem } from '../chakra/NotionListItem';
 import { NotionToDo } from '../chakra/NotionTodo';
-import { NotionToggle } from '../chakra/NotionToggle';
 import { NotionEmbed } from '../chakra/NotionEmbed';
 import { NotionUnsupported } from '../chakra/NotionUnsupported';
 
@@ -39,11 +38,9 @@ export const NotionBlock = ({
     case 'numbered_list_item':
       return <NotionListItem block={block as ListItemBlock} />;
     case 'to_do':
-      return <NotionToDo block={block as ToDoBlock} />;
-    case 'toggle':
-      return <NotionToggle block={block as ToggleBlock} />;
+      return <NotionToDo block={block as ToDoBlockObjectResponse} />;
     case 'embed':
-      return <NotionEmbed block={block as EmbedBlock} />;
+      return <NotionEmbed block={block as EmbedBlockObjectResponse} />;
     default:
       return <NotionUnsupported />;
   }
