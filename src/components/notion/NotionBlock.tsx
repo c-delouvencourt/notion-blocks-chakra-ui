@@ -4,7 +4,6 @@ import {
   ParagraphBlockObjectResponse as ParagraphNotionBlock,
   ToDoBlockObjectResponse,
   EmbedBlockObjectResponse,
-  ToggleBlockObjectResponse,
 } from '@notionhq/client/build/src/api-endpoints';
 import { NotionParagraph } from '../chakra/NotionParagraph';
 import { HeadingBlock, NotionHeading } from '../chakra/NotionHeading';
@@ -13,12 +12,26 @@ import { NotionToDo } from '../chakra/NotionTodo';
 import { NotionEmbed } from '../chakra/NotionEmbed';
 import { NotionUnsupported } from '../chakra/NotionUnsupported';
 
+type NotionImageProps = {
+  src: string;
+  alt?: string;
+  className?: string;
+  width?: number;
+  height?: number;
+  style?: React.CSSProperties;
+};
+
+type CustomImage = {
+  Image: (props: NotionImageProps) => JSX.Element;
+  props: NotionImageProps;
+};
+
 export const NotionBlock = ({
   block,
   customImage,
 }: {
   block: Block;
-  customImage?: { Image: (props: any) => JSX.Element; props: any };
+  customImage?: CustomImage;
 }): JSX.Element => {
   const { type } = block;
   switch (type) {

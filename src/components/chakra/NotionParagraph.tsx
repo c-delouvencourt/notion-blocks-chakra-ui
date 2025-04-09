@@ -6,9 +6,23 @@ import {
 import React from 'react';
 import { NotionText } from '../notion/NotionText';
 
+type NotionImageProps = {
+  src: string;
+  alt?: string;
+  className?: string;
+  width?: number;
+  height?: number;
+  style?: React.CSSProperties;
+};
+
+type CustomImage = {
+  Image: (props: NotionImageProps) => JSX.Element;
+  props: NotionImageProps;
+};
+
 type Props = {
   block: ParagraphBlockObjectResponse;
-  customImage?: { Image: (props: any) => JSX.Element; props: any };
+  customImage?: CustomImage;
 };
 
 export const NotionParagraph = ({ block, customImage }: Props): JSX.Element => {
@@ -24,7 +38,9 @@ export const NotionParagraph = ({ block, customImage }: Props): JSX.Element => {
     return (
       <Box w="100%" className="image-container">
         {customImage && customImage.Image ? (
-          <customImage.Image src={imageProps[0]} {...customImage.props} />
+          <customImage.Image
+            {...{ ...customImage.props, src: imageProps[0] }}
+          />
         ) : (
           <Image src={imageProps[0]} boxSize="100%" objectFit="contain" />
         )}
@@ -65,7 +81,7 @@ export const NotionParagraph = ({ block, customImage }: Props): JSX.Element => {
     );
   }
   return (
-    <Text color="#374151" marginBottom="0.5rem" lineHeight="1.75">
+    <Text color="#374151" marginBottom="1rem" lineHeight="1.75">
       <NotionText text={text} />
     </Text>
   );

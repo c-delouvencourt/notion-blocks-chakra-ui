@@ -42,9 +42,9 @@ export const NotionHeading = ({ block }: NotionHeadingProps): JSX.Element => {
       return (
         <Heading
           as="h3"
-          fontSize="16px"
-          marginBottom="1rem"
-          marginTop="2rem"
+          fontSize="18px"
+          marginBottom="0.75rem"
+          marginTop="1.75rem"
           color="#111827"
         >
           <NotionText text={block.heading_3.rich_text} />

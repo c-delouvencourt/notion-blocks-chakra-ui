@@ -16,7 +16,7 @@ type NotionListItemProps = {
 
 export const NotionListItem = ({ block }: NotionListItemProps): JSX.Element => {
   return (
-    <chakra.li>
+    <chakra.li color="#374151" marginBottom="1rem" lineHeight="1.75">
       <NotionText
         text={
           'bulleted_list_item' in block
